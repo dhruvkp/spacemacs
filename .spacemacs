@@ -108,12 +108,19 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
-                               :weight normal
-                               :width normal
-                               :powerline-scale 1.1)
-   ;; The leader key
+   dotspacemacs-default-font (if (eq system-type 'darwin)
+                                 '("SauceCodePro Nerd Font"
+                                   :size 13
+                                   :weight normal
+                                   :width normal
+                                   :powerline-scale 1.1)
+                                 '("Source Code Pro"
+                                   :size 13
+                                   :weight normal
+                                   :width normal
+                                   :powerline-scale 1.1)
+                              )
+      ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
    ;; (default "M-m")
@@ -253,6 +260,9 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (setq vc-follow-symlinks t)
+  (if (eq system-type 'darwin)
+      (setq ns-use-srgb-colorspace nil)
+      )
 
   ;; Evil window movement
   (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
